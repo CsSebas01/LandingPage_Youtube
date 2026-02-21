@@ -194,7 +194,7 @@ export default function MusicPlayer() {
   }, []);
 
   return (
-    <div className="fixed bottom-4 right-4 z-[80]">
+    <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 z-[80]">
       {!state.enabled ? (
         <button
           onClick={enable}
@@ -209,7 +209,7 @@ export default function MusicPlayer() {
           </div>
         </button>
       ) : (
-        <div className="flex items-center gap-3 rounded-2xl border border-cyan-300/25 bg-[#08121f]/70 px-4 py-3 shadow-[0_0_40px_rgba(34,211,238,0.16)] backdrop-blur-xl">
+        <div className="flex w-full flex-col gap-3 rounded-2xl border border-cyan-300/25 bg-[#08121f]/70 px-4 py-3 shadow-[0_0_40px_rgba(34,211,238,0.16)] backdrop-blur-xl sm:w-[460px] sm:flex-row sm:items-center sm:gap-3">
           <button
             onClick={toggleMute}
             className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 transition hover:bg-white/10"
@@ -224,10 +224,10 @@ export default function MusicPlayer() {
 
           <div className="flex flex-col gap-1">
             <div className="text-xs text-white/60">Volumen</div>
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
               <canvas
                 ref={canvasRef}
-                className="h-8 w-28 rounded-lg border border-white/10 bg-white/5"
+                className="h-8 w-full sm:w-28 rounded-lg border border-white/10 bg-white/5"
               />
               <input
                 type="range"
@@ -240,7 +240,7 @@ export default function MusicPlayer() {
                     volume: Number(e.target.value) / 100,
                   }))
                 }
-                className="w-32 accent-cyan-300"
+                className="w-full sm:w-32 accent-cyan-300"
               />
             </div>
           </div>
@@ -259,7 +259,7 @@ export default function MusicPlayer() {
 
           <button
             onClick={stopAll}
-            className="rounded-xl px-3 py-2 text-sm text-white/70 transition hover:bg-white/10 hover:text-white"
+            className="rounded-xl px-3 py-2 text-sm text-white/70 transition hover:bg-white/10 hover:text-white sm:px-3"
             title="Stop"
           >
             Stop

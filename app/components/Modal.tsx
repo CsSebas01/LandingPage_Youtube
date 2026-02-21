@@ -53,7 +53,7 @@ export default function Modal({
           <motion.div
             role="dialog"
             aria-modal="true"
-            className="relative w-full max-w-2xl rounded-3xl border border-cyan-300/25 bg-[#08121f]/70 shadow-[0_0_80px_rgba(34,211,238,0.18)] backdrop-blur-xl"
+            className="relative w-[92vw] max-w-2xl max-h-[85vh] overflow-hidden rounded-3xl border border-cyan-300/25 bg-[#08121f]/70 shadow-[0_0_80px_rgba(34,211,238,0.18)] backdrop-blur-xl"
             initial={{ opacity: 0, y: 18, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.98 }}
@@ -69,7 +69,9 @@ export default function Modal({
               </button>
             </div>
 
-            <div className="p-6">{children}</div>
+            <div className="p-6 max-h-[70vh] overflow-y-auto overscroll-contain">
+              {children}
+            </div>
           </motion.div>
         </motion.div>
       )}

@@ -23,16 +23,16 @@ export default function IntroGate({
             <img
               src="/ciudad.jpg"
               alt="Fondo"
-              className="h-full w-full object-cover blur-[3px] scale-105 opacity-70"
+              className="h-full w-full object-cover blur-[4px] scale-110 opacity-60"
             />
-            <div className="absolute inset-0 bg-[#040814]/55" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgb(var(--neon-a)_/_0.18),transparent_55%),radial-gradient(circle_at_bottom_right,rgb(var(--neon-c)_/_0.18),transparent_55%)]" />
+            <div className="absolute inset-0 bg-[#02050f]/70" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.14),transparent_55%),radial-gradient(circle_at_bottom_left,rgba(168,85,247,0.12),transparent_55%)]" />
             <Rain intensity={180} />
           </div>
 
           <div className="neon-frame rounded-3xl">
             <motion.div
-              className="relative w-full max-w-2xl rounded-3xl bg-white/5 p-6 backdrop-blur-xl md:p-8"
+              className="relative w-full max-w-2xl rounded-3xl bg-[#07101d]/78 p-6 backdrop-blur-xl md:p-8"
               initial={{ y: 24, opacity: 0, scale: 0.98 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
               transition={{ duration: 2, ease: "easeOut" }}

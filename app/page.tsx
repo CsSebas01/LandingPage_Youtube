@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Check, Copy, Mail, MessageCircle, Music2, Youtube } from "lucide-react";
+import { ArrowUpRight, Check, Copy, Instagram, Mail, MessageCircle, Music2, Youtube } from "lucide-react";
 import IntroGate from "./components/IntroGate";
 import MusicPlayer from "./components/MusicPlayer";
 import Modal from "./components/Modal";
@@ -76,11 +76,11 @@ export default function Home() {
         <img
           src="/ciudad.jpg"
           alt="Fondo ciudad"
-          className="h-full w-full object-cover blur-[2px] scale-[1.03] opacity-85 contrast-[1.12] saturate-[1.25]"
+          className="h-full w-full object-cover blur-[4px] scale-110 opacity-60"
         />
 
-        <div className="absolute inset-0 bg-[#02040a]/70" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgb(var(--neon-a)_/_0.22),transparent_55%),radial-gradient(circle_at_left,rgb(var(--neon-b)_/_0.16),transparent_50%),radial-gradient(circle_at_bottom_right,rgb(var(--neon-c)_/_0.18),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[#01030a]/78" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgb(var(--neon-a)_/_0.18),transparent_55%),radial-gradient(circle_at_bottom_left,rgb(var(--neon-b)_/_0.14),transparent_55%),radial-gradient(circle_at_right,rgb(var(--neon-c)_/_0.12),transparent_55%)]" />
 
         <Rain intensity={160} />
       </div>
@@ -112,9 +112,9 @@ export default function Home() {
               initial={{ opacity: 0, y: 18, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="relative rounded-3xl bg-white/5 p-6 backdrop-blur-2xl md:p-10"
+              className="relative rounded-3xl bg-[#07101d]/78 p-6 backdrop-blur-2xl md:p-10"
             >
-              <div className="pointer-events-none absolute inset-0 rounded-3xl border border-white/10" />
+              <div className="pointer-events-none absolute inset-0 rounded-3xl border border-white/8" />
 
             <div className="flex items-start gap-6 md:flex-row md:gap-10">
               <div className="shrink-0">
@@ -222,11 +222,17 @@ export default function Home() {
                   className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:bg-white/10"
                 >
                   <div className="flex items-center gap-4">
-                    <img
-                      src={a.avatar}
-                      alt={a.name}
-                      className="h-12 w-12 rounded-full object-cover ring-2 ring-cyan-300/25"
-                    />
+                    {a.platform === "Instagram" ? (
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+                        <Instagram className="h-6 w-6 text-white/80" />
+                      </div>
+                    ) : (
+                      <img
+                        src={a.avatar}
+                        alt={a.name}
+                        className="h-12 w-12 rounded-full object-cover ring-2 ring-cyan-300/25"
+                      />
+                    )}
                     <div>
                       <div className="font-bold text-white">
                         {a.platform} — {a.name}

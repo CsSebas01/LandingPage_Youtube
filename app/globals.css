@@ -1,15 +1,14 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
-html, body {
-  height: 100%;
-}
+html, body { height: 100%; }
 
 :root {
-  --neon-a: 56 189 248;
-  --neon-b: 217 70 239;
-  --neon-c: 99 102 241;
+  --neon-a: 56 189 248;  /* cyan */
+  --neon-b: 217 70 239;  /* fuchsia */
+  --neon-c: 99 102 241;  /* indigo */
 }
 
+/* ✅ Luces de fondo que cambian (vuelve el efecto "arriba azul/rojo") */
 @keyframes neonShift {
   0%   { --neon-a: 56 189 248; --neon-b: 217 70 239; --neon-c: 99 102 241; }
   33%  { --neon-a: 217 70 239; --neon-b: 99 102 241; --neon-c: 56 189 248; }
@@ -21,21 +20,38 @@ html, body {
   animation: neonShift 10s ease-in-out infinite;
 }
 
-@keyframes neonBorderSpin {
-  to { transform: rotate(360deg); }
-}
-
+/* ✅ Borde RGB FINO (solo borde) + glow suave por fuera */
 .neon-frame {
   position: relative;
-  border-radius: 24px;
+  border-radius: 24px; /* coincide con rounded-3xl */
 }
 
+/* Glow exterior (suave) */
 .neon-frame::before {
   content: "";
   position: absolute;
-  inset: -2px;
+  inset: -10px;
   border-radius: inherit;
-  padding: 2px;
+  background: conic-gradient(
+    from 0deg,
+    rgb(var(--neon-a) / 1),
+    rgb(var(--neon-c) / 1),
+    rgb(var(--neon-b) / 1),
+    rgb(var(--neon-a) / 1)
+  );
+  filter: blur(16px);
+  opacity: 0.25;          /* suave */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Borde nítido SOLO en el borde (sin teñir el centro) */
+.neon-frame::after {
+  content: "";
+  position: absolute;
+  inset: -1px;            /* grosor del borde */
+  border-radius: inherit;
+  padding: 1px;           /* borde fino */
   background: conic-gradient(
     from 0deg,
     rgb(var(--neon-a) / 0.95),
@@ -43,35 +59,23 @@ html, body {
     rgb(var(--neon-b) / 0.95),
     rgb(var(--neon-a) / 0.95)
   );
+  /* máscara: deja SOLO el borde */
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  filter: blur(0.6px);
-  opacity: 0.9;
-  animation: neonBorderSpin 10s linear infinite;
+
   pointer-events: none;
+  z-index: 1;
 }
 
-.neon-frame::after {
-  content: "";
-  position: absolute;
-  inset: -18px;
-  border-radius: inherit;
-  background: radial-gradient(
-    closest-side,
-    rgb(var(--neon-a) / 0.10),
-    rgb(var(--neon-b) / 0.08),
-    transparent 70%
-  );
-  filter: blur(14px);
-  opacity: 0.9;
-  pointer-events: none;
+/* Contenido por encima */
+.neon-frame > * {
+  position: relative;
+  z-index: 2;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .neon-frame::before {
-    animation: none;
-  }
+  .neon-cycle { animation: none; }
 }
