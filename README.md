@@ -98,6 +98,53 @@ pnpm dev
 bun dev
 ```
 
+🚀 Deploy
+
+Proyecto preparado para despliegue en:
+
+Vercel
+
+Netlify
+
+Render
+
+Hosting Node compatible
+
+📈 Posibles mejoras futuras
+
+Sistema CMS para cambiar enlaces sin tocar código
+
+Panel administrador
+
+Modo claro / oscuro dinámico
+
+Efectos de partículas WebGL
+
+Animación 3D en fondo
+
+SEO avanzado
+
+Analytics integrado
+
+📜 Licencia
+
+Proyecto privado / Comercial
+Uso y redistribución solo con autorización del autor.
+
+🎨 Filosofía de Diseño
+
+La intención fue crear una landing page que combine:
+
+Estética gamer
+
+Experiencia inmersiva
+
+Rendimiento optimizado
+
+Animaciones elegantes (no invasivas)
+
+Sensación premium
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
