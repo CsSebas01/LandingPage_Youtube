@@ -165,9 +165,14 @@ export default function Home() {
             >
               <div className="flex items-center gap-3">
                 <img
+                  src="/customuse_foto.jpg"
+                  alt="Customuse"
+                  className="h-10 w-10 rounded-xl border border-white/10 bg-white/5 object-cover sm:hidden"
+                />
+                <img
                   src="https://logo.clearbit.com/customuse.com"
                   alt="Customuse"
-                  className="h-10 w-10 rounded-xl border border-white/10 bg-white/5 object-cover"
+                  className="hidden h-10 w-10 rounded-xl border border-white/10 bg-white/5 object-cover sm:block"
                 />
                 <div>
                   <div className="text-sm font-bold text-white">Patrocinado por Customuse</div>
@@ -350,9 +355,14 @@ export default function Home() {
             <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
               <div className="flex items-center gap-4">
                 <img
+                  src="/customuse_foto.jpg"
+                  alt="Customuse"
+                  className="h-14 w-14 rounded-2xl border border-white/10 bg-white/5 object-cover sm:hidden"
+                />
+                <img
                   src="https://logo.clearbit.com/customuse.com"
                   alt="Customuse"
-                  className="h-14 w-14 rounded-2xl border border-white/10 bg-white/5 object-cover"
+                  className="hidden h-14 w-14 rounded-2xl border border-white/10 bg-white/5 object-cover sm:block"
                 />
                 <div>
                   <div className="text-lg font-bold text-white">Customuse x Kliptt0</div>
