@@ -133,7 +133,7 @@ export default function Home() {
       highlight: "Usa el código KLIPT al finalizar tu compra",
       code: "KLIPT",
       href: bloxbeamLink,
-      localImage: "/bloxbeam-logo.png",
+      localImage: "/bloxbeam-logo.avif",
       logoFit: "contain",
     },
   ];
@@ -233,7 +233,7 @@ export default function Home() {
               </h3>
 
               <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
-                {sponsors.map((sponsor) => (
+                {sponsors.map((sponsor, index) => (
                   <SponsorCard
                     key={sponsor.name}
                     name={sponsor.name}
@@ -244,6 +244,7 @@ export default function Home() {
                     localImage={sponsor.localImage}
                     remoteImage={sponsor.remoteImage}
                     logoFit={sponsor.logoFit}
+                    className={index === sponsors.length - 1 ? "lg:col-span-2" : ""}
                     onClick={() => {
                       setActiveSponsor(sponsor);
                       setSponsorOpen(true);
@@ -258,6 +259,13 @@ export default function Home() {
                 Objetos UGC disponibles en el catálogo de Roblox
               </h3>
               <RobloxCatalogCard />
+            </section>
+
+            <section className="mt-6 rounded-2xl border border-cyan-300/20 bg-white/5 p-4">
+              <h3 className="text-sm font-extrabold uppercase tracking-wide text-cyan-100/90">
+                Grupos de Roblox disponibles
+              </h3>
+              <RobloxGroups />
             </section>
 
             <a
@@ -544,6 +552,7 @@ function SponsorCard({
   localImage,
   remoteImage,
   logoFit = "cover",
+  className = "",
 }: {
   name: string;
   title: string;
@@ -554,6 +563,7 @@ function SponsorCard({
   localImage?: string;
   remoteImage?: string;
   logoFit?: "cover" | "contain";
+  className?: string;
 }) {
   const fallbackImage = remoteImage ?? localImage ?? "";
   const [imgSrc, setImgSrc] = useState(localImage ?? fallbackImage);
@@ -562,7 +572,7 @@ function SponsorCard({
     <button
       type="button"
       onClick={onClick}
-      className="flex items-center justify-between gap-3 rounded-2xl border border-cyan-300/20 bg-white/5 px-4 py-3 transition hover:bg-white/10"
+      className={`flex items-center justify-between gap-3 rounded-2xl border border-cyan-300/20 bg-white/5 px-4 py-3 transition hover:bg-white/10 ${className}`}
     >
       <div className="flex min-w-0 items-center gap-3">
         <img
@@ -612,6 +622,52 @@ function RobloxCatalogCard() {
         Ver objeto <ArrowUpRight className="h-4 w-4" />
       </span>
     </a>
+  );
+}
+
+function RobloxGroups() {
+  return (
+    <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
+      <a
+        href="https://www.roblox.com/es/communities/6253150/dryed-cereal#!/about"
+        target="_blank"
+        rel="noreferrer"
+        className="group overflow-hidden rounded-2xl border border-cyan-300/20 bg-white/5 transition hover:bg-white/10"
+      >
+        <img
+          src="/grupo-dryed-cereal.png"
+          alt="Grupo de Roblox dryed cereal"
+          className="aspect-video w-full object-cover"
+        />
+        <div className="flex items-center justify-between gap-3 p-4">
+          <div>
+            <div className="font-bold text-white">dryed cereal</div>
+            <div className="mt-1 text-sm text-white/65">Grupo de Ceredy</div>
+          </div>
+          <ArrowUpRight className="h-5 w-5 shrink-0 text-cyan-200 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        </div>
+      </a>
+
+      <a
+        href="https://www.roblox.com/es/communities/5488916/robloxian-girl-boys-D#!/about"
+        target="_blank"
+        rel="noreferrer"
+        className="group overflow-hidden rounded-2xl border border-cyan-300/20 bg-white/5 transition hover:bg-white/10"
+      >
+        <img
+          src="/grupo-robloxian-girl-boys.png"
+          alt="Grupo de Roblox robloxian girl/boys"
+          className="aspect-video w-full object-cover"
+        />
+        <div className="flex items-center justify-between gap-3 p-4">
+          <div>
+            <div className="font-bold text-white">robloxian girl/boys :D</div>
+            <div className="mt-1 text-sm text-white/65">Grupo de Kliptt0</div>
+          </div>
+          <ArrowUpRight className="h-5 w-5 shrink-0 text-cyan-200 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        </div>
+      </a>
+    </div>
   );
 }
 
