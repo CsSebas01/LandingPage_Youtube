@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Check, Copy, Instagram, Mail, MessageCircle, Music2, Radio, Youtube } from "lucide-react";
+import { ArrowUpRight, BadgeCheck, Check, Copy, Instagram, Mail, MessageCircle, Music2, Radio, Youtube } from "lucide-react";
 import IntroGate from "./components/IntroGate";
 import MusicPlayer from "./components/MusicPlayer";
 import Modal from "./components/Modal";
@@ -18,7 +18,7 @@ export default function Home() {
   const [mailOpen, setMailOpen] = useState(false);
   const [sponsorOpen, setSponsorOpen] = useState(false);
   const [activeSponsor, setActiveSponsor] = useState<SponsorData | null>(null);
-  const [rainIntensity, setRainIntensity] = useState(160);
+  const [desktopEffects, setDesktopEffects] = useState(false);
 
   const customuseLink = "https://go.customuse.com/kliptt0-ezvj";
   const customuseCode = "KLIPT";
@@ -28,12 +28,12 @@ export default function Home() {
   const temuCode = "ale128679";
   const temuLocalImage = "/temu-logo.png";
   const temuRemoteImage = "https://logo.clearbit.com/temu.com";
+  const bloxbeamLink = "https://www.bloxbeam.com/";
 
   useEffect(() => {
-    const query = window.matchMedia("(max-width: 640px)");
+    const query = window.matchMedia("(min-width: 1025px)");
     const update = (event?: MediaQueryListEvent) => {
-      const mobile = event ? event.matches : query.matches;
-      setRainIntensity(mobile ? 100 : 150);
+      setDesktopEffects(event ? event.matches : query.matches);
     };
 
     update();
@@ -44,24 +44,24 @@ export default function Home() {
   const youtubeChannels = [
     {
       name: "Kliptt0",
-      subs: "2.2M+ Suscriptores",
+      subs: "2.36 Mill + Suscriptores",
       tags: ["Gaming", "Entretenimiento", "Shorts"],
       url: "https://www.youtube.com/@kliptt0",
       avatar: "/fotonacho.jpeg",
     },
     {
       name: "Ceredy",
-      subs: "150K+ Suscriptores",
+      subs: "255k + Suscriptores",
       tags: ["Gaming", "Shorts"],
       url: "https://www.youtube.com/@Ceredy1",
       avatar: "/fotosebas.jpg",
     },
     {
-      name: "El Tocinito",
-      subs: "140K+ Suscriptores",
+      name: "Bulldog Reacciona",
+      subs: "280k + Suscriptores",
       tags: ["Gaming", "Shorts"],
       url: "https://www.youtube.com/@eltocinito890",
-      avatar: "/fotonacho.jpeg",
+      avatar: "/bulldog-reacciona.jpeg",
     },
   ];
 
@@ -69,21 +69,21 @@ export default function Home() {
     {
       platform: "TikTok",
       name: "klipt0",
-      followers: "140K+",
+      followers: "168K+",
       url: "https://www.tiktok.com/@klipt0?_r=1&_t=ZS-945T5su5DMr",
       avatar: "/fotonacho.jpeg",
     },
     {
       platform: "TikTok",
       name: "kliptt0_0",
-      followers: "30K+",
+      followers: "38k+",
       url: "https://www.tiktok.com/@kliptt0_0?_r=1&_t=ZS-945T8Kiboyj",
       avatar: "/fotonacho.jpeg",
     },
     {
       platform: "Instagram",
       name: "kliptt0",
-      followers: "1.6K+",
+      followers: "9500+",
       url: "https://www.instagram.com/kliptt0?igsh=b2p1Y3IwYzdndWtk",
       avatar: "/instagram.png",
     },
@@ -125,21 +125,35 @@ export default function Home() {
       localImage: temuLocalImage,
       remoteImage: temuRemoteImage,
     },
+    {
+      name: "Bloxbeam",
+      title: "Patrocinado por Bloxbeam",
+      description: "10% de descuento con el código KLIPT",
+      modalDescription: "Encuentra objetos y artículos para tus juegos favoritos con entrega automatizada.",
+      highlight: "Usa el código KLIPT al finalizar tu compra",
+      code: "KLIPT",
+      href: bloxbeamLink,
+      localImage: "/bloxbeam-logo.png",
+      logoFit: "contain",
+    },
   ];
 
   return (
     <main className="neon-cycle relative min-h-screen overflow-hidden text-white">
       <div className="pointer-events-none absolute inset-0">
-        <img
-          src="/ciudad.jpg"
-          alt="Fondo ciudad"
-          className="h-full w-full object-cover blur-[4px] scale-110 opacity-60"
-        />
+        <picture>
+          <source media="(max-width: 1024px)" srcSet="/ciudad-mobile.webp" />
+          <img
+            src="/ciudad.jpg"
+            alt="Fondo ciudad"
+            className="h-full w-full object-cover blur-[4px] scale-110 opacity-60"
+          />
+        </picture>
 
         <div className="absolute inset-0 bg-[#01030a]/78" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgb(var(--neon-a)_/_0.18),transparent_55%),radial-gradient(circle_at_bottom_left,rgb(var(--neon-b)_/_0.14),transparent_55%),radial-gradient(circle_at_right,rgb(var(--neon-c)_/_0.12),transparent_55%)]" />
 
-        <Rain intensity={rainIntensity} />
+        {desktopEffects && <Rain intensity={150} />}
       </div>
 
       {!entered && (
@@ -186,9 +200,13 @@ export default function Home() {
                   href={ROBLOX_PROFILE_URL}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-block text-3xl font-extrabold text-cyan-100/90 transition hover:text-cyan-200"
+                  aria-label="Abrir perfil de Roblox de Kliptt0"
+                  className="group inline-flex items-center gap-2 text-3xl font-extrabold text-cyan-100/90 transition hover:text-cyan-200"
                 >
                   Kliptt0
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full border border-cyan-200/35 bg-cyan-300/10 text-cyan-100 transition group-hover:bg-cyan-300/20">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
                 </a>
                 <p className="mt-2 text-white/70">
                   Gaming, entretenimiento y shorts con una comunidad que no para de crecer. Elige tu plataforma
@@ -225,6 +243,7 @@ export default function Home() {
                     code={sponsor.code}
                     localImage={sponsor.localImage}
                     remoteImage={sponsor.remoteImage}
+                    logoFit={sponsor.logoFit}
                     onClick={() => {
                       setActiveSponsor(sponsor);
                       setSponsorOpen(true);
@@ -232,6 +251,13 @@ export default function Home() {
                   />
                 ))}
               </div>
+            </section>
+
+            <section className="mt-6 rounded-2xl border border-cyan-300/20 bg-white/5 p-4">
+              <h3 className="text-sm font-extrabold uppercase tracking-wide text-cyan-100/90">
+                Objetos UGC disponibles en el catálogo de Roblox
+              </h3>
+              <RobloxCatalogCard />
             </section>
 
             <a
@@ -269,7 +295,10 @@ export default function Home() {
                     />
 
                     <div className="min-w-0">
-                      <div className="truncate font-bold text-white">{c.name}</div>
+                      <div className="flex items-center gap-1.5 truncate font-bold text-white">
+                        <span className="truncate">{c.name}</span>
+                        <BadgeCheck className="h-4 w-4 shrink-0 text-cyan-200" aria-label="Canal verificado" />
+                      </div>
                       <div className="text-sm text-white/60">{c.subs}</div>
                       <div className="truncate text-xs text-white/40">{c.url}</div>
                       <div className="mt-1 flex flex-wrap gap-2">
@@ -418,6 +447,7 @@ export default function Home() {
 
           <footer className="mt-10 text-center text-xs text-white/50">
             © {new Date().getFullYear()} SMEC - Ceredy01. Todos los derechos reservados.
+            <p className="mt-2 text-white/65 lg:hidden">Abre la página en ordenador para disfrutar de la máxima experiencia.</p>
           </footer>
         </div>
       )}
@@ -501,6 +531,7 @@ type SponsorData = {
   href: string;
   localImage?: string;
   remoteImage?: string;
+  logoFit?: "cover" | "contain";
 };
 
 function SponsorCard({
@@ -512,6 +543,7 @@ function SponsorCard({
   onClick,
   localImage,
   remoteImage,
+  logoFit = "cover",
 }: {
   name: string;
   title: string;
@@ -521,6 +553,7 @@ function SponsorCard({
   onClick: () => void;
   localImage?: string;
   remoteImage?: string;
+  logoFit?: "cover" | "contain";
 }) {
   const fallbackImage = remoteImage ?? localImage ?? "";
   const [imgSrc, setImgSrc] = useState(localImage ?? fallbackImage);
@@ -535,7 +568,7 @@ function SponsorCard({
         <img
           src={imgSrc}
           alt={name}
-          className="h-10 w-10 rounded-xl border border-white/10 bg-white/5 object-cover"
+          className={`h-10 w-10 rounded-xl border border-white/10 bg-white/5 ${logoFit === "contain" ? "object-contain p-1" : "object-cover"}`}
           onError={() => {
             if (imgSrc !== fallbackImage) setImgSrc(fallbackImage);
           }}
@@ -553,6 +586,35 @@ function SponsorCard({
   );
 }
 
+function RobloxCatalogCard() {
+  const catalogUrl = "https://www.roblox.com/es/catalog/78160258117526/Pibble-Abejita";
+  const imageUrl = "https://tr.rbxcdn.com/180DAY-530208472ae0686c8680c1323b32a45b/420/420/ShoulderAccessory/Webp/noFilter";
+
+  return (
+    <a
+      href={catalogUrl}
+      target="_blank"
+      rel="noreferrer"
+      className="group mt-3 flex items-center justify-between gap-4 rounded-2xl border border-cyan-300/20 bg-white/5 p-3 transition hover:bg-white/10"
+    >
+      <div className="flex min-w-0 items-center gap-4">
+        <img
+          src={imageUrl}
+          alt="Pibble Abejita"
+          className="h-16 w-16 rounded-2xl border border-white/10 bg-yellow-300/10 object-contain"
+        />
+        <div className="min-w-0">
+          <div className="font-bold text-white">Pibble Abejita</div>
+          <div className="mt-1 text-sm text-white/65">Objeto UGC para tu avatar de Roblox.</div>
+        </div>
+      </div>
+      <span className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-cyan-300/25 bg-cyan-300/10 px-3 py-2 text-sm font-bold text-cyan-100 transition group-hover:bg-cyan-300/20">
+        Ver objeto <ArrowUpRight className="h-4 w-4" />
+      </span>
+    </a>
+  );
+}
+
 function SponsorModalContent({ sponsor }: { sponsor: SponsorData }) {
   const fallbackImage = sponsor.remoteImage ?? sponsor.localImage ?? "";
 
@@ -563,7 +625,7 @@ function SponsorModalContent({ sponsor }: { sponsor: SponsorData }) {
           <img
             src={sponsor.localImage ?? fallbackImage}
             alt={sponsor.name}
-            className="h-14 w-14 rounded-2xl border border-white/10 bg-white/5 object-cover"
+            className={`h-14 w-14 rounded-2xl border border-white/10 bg-white/5 ${sponsor.logoFit === "contain" ? "object-contain p-1" : "object-cover"}`}
             onError={(e) => {
               if (e.currentTarget.src !== fallbackImage) {
                 e.currentTarget.src = fallbackImage;

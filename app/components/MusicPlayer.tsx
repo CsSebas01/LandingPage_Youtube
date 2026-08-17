@@ -30,6 +30,7 @@ export default function MusicPlayer() {
   const pointerOffsetRef = useRef<Point>({ x: 0, y: 0 });
 
   const [isMobile, setIsMobile] = useState(false);
+  const [lowPowerDevice, setLowPowerDevice] = useState(false);
   const [minimized, setMinimized] = useState(false);
   const [bubblePos, setBubblePos] = useState<Point>({ x: 16, y: 140 });
 
@@ -64,7 +65,9 @@ export default function MusicPlayer() {
   useEffect(() => {
     const onResize = () => {
       const mobile = window.matchMedia("(max-width: 640px)").matches;
+      const lowPower = window.matchMedia("(max-width: 1024px)").matches;
       setIsMobile(mobile);
+      setLowPowerDevice(lowPower);
       if (!mobile) setMinimized(false);
     };
 
@@ -125,6 +128,8 @@ export default function MusicPlayer() {
   };
 
   const startVisualizer = () => {
+    if (lowPowerDevice) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const analyser = analyserRef.current;
@@ -191,6 +196,12 @@ export default function MusicPlayer() {
     };
   };
 
+  useEffect(() => {
+    if (!lowPowerDevice || !rafRef.current) return;
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = null;
+  }, [lowPowerDevice]);
+
   const enable = () => {
     setupAnalyser();
 
@@ -198,7 +209,7 @@ export default function MusicPlayer() {
     const s = soundRef.current;
     if (s && !s.playing()) s.play();
 
-    setTimeout(() => startVisualizer(), 50);
+    if (!lowPowerDevice) setTimeout(() => startVisualizer(), 50);
   };
 
   const togglePlay = () => {
@@ -213,7 +224,7 @@ export default function MusicPlayer() {
     } else {
       s.play();
       setState((x) => ({ ...x, playing: true, enabled: true }));
-      setTimeout(() => startVisualizer(), 50);
+      if (!lowPowerDevice) setTimeout(() => startVisualizer(), 50);
     }
   };
 
@@ -331,10 +342,12 @@ export default function MusicPlayer() {
           <div className="flex flex-1 flex-col gap-1">
             <div className="text-xs text-white/60">Volumen</div>
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
-              <canvas
-                ref={canvasRef}
-                className="h-8 w-full rounded-lg border border-white/10 bg-white/5 sm:w-28"
-              />
+              {!lowPowerDevice && (
+                <canvas
+                  ref={canvasRef}
+                  className="h-8 w-full rounded-lg border border-white/10 bg-white/5 sm:w-28"
+                />
+              )}
               <input
                 type="range"
                 min={0}

@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import { useEffect, useState } from "react";
 import Rain from "./Rain";
 
 const ROBLOX_PROFILE_URL = "https://www.roblox.com/es/users/505776198/profile";
@@ -11,6 +12,16 @@ export default function IntroGate({
   show: boolean;
   onEnter: () => void;
 }) {
+  const [desktopEffects, setDesktopEffects] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 1025px)");
+    const update = () => setDesktopEffects(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
   if (!show) return null;
 
   return (
@@ -18,14 +29,17 @@ export default function IntroGate({
           className="neon-cycle fixed inset-0 z-[60] flex items-center justify-center p-4"
         >
           <div className="absolute inset-0 pointer-events-none">
-            <img
-              src="/ciudad.jpg"
-              alt="Fondo"
-              className="h-full w-full object-cover blur-[4px] scale-110 opacity-60"
-            />
+            <picture>
+              <source media="(max-width: 1024px)" srcSet="/ciudad-mobile.webp" />
+              <img
+                src="/ciudad.jpg"
+                alt="Fondo"
+                className="h-full w-full object-cover blur-[4px] scale-110 opacity-60"
+              />
+            </picture>
             <div className="absolute inset-0 bg-[#02050f]/70" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.14),transparent_55%),radial-gradient(circle_at_bottom_left,rgba(168,85,247,0.12),transparent_55%)]" />
-            <Rain intensity={140} />
+            {desktopEffects && <Rain intensity={140} />}
           </div>
 
           <div className="neon-frame rounded-3xl">
